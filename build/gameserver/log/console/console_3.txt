@@ -1,0 +1,131 @@
+[12-12-2022 21:18:00]	INFO	-------------------------------------------------------------------=[ Config ]
+[12-12-2022 21:18:00]	INFO	Loading gameserver configuration files.
+[12-12-2022 21:18:00]	INFO	------------------------------------------------------------------=[ Poolers ]
+[12-12-2022 21:18:00]	INFO	Initializing ConnectionPool.
+[12-12-2022 21:18:00]	INFO	Initializing ThreadPool.
+[12-12-2022 21:18:00]	INFO	----------------------------------------------------------------=[ IdFactory ]
+[12-12-2022 21:18:00]	INFO	Updated characters online status.
+[12-12-2022 21:18:00]	INFO	Cleaned 0 elements from database.
+[12-12-2022 21:18:00]	INFO	Cleaned 0 expired timestamps from database.
+[12-12-2022 21:18:00]	INFO	Initializing 102912 objectIds pool, with 10 used ids.
+[12-12-2022 21:18:01]	INFO	--------------------------------------------------------------------=[ Cache ]
+[12-12-2022 21:18:01]	INFO	Loaded 0 crests.
+[12-12-2022 21:18:01]	INFO	--------------------------------------------------------------------=[ World ]
+[12-12-2022 21:18:01]	INFO	World grid (176 by 256) is now set up.
+[12-12-2022 21:18:01]	INFO	Loaded regions.
+[12-12-2022 21:18:01]	INFO	Loaded 0 announcements.
+[12-12-2022 21:18:01]	INFO	Loaded 1 server variables.
+[12-12-2022 21:18:01]	INFO	-------------------------------------------------------------------=[ Skills ]
+[12-12-2022 21:18:01]	INFO	SkillTable: Loaded 29743 skills.
+[12-12-2022 21:18:01]	INFO	Loaded 117 fishing skills.
+[12-12-2022 21:18:01]	INFO	Loaded 64 clan skills.
+[12-12-2022 21:18:01]	INFO	Loaded 14550 enchant skills.
+[12-12-2022 21:18:01]	INFO	--------------------------------------------------------------------=[ Items ]
+[12-12-2022 21:18:02]	INFO	Loaded items.
+[12-12-2022 21:18:02]	INFO	Loaded 13 summon items.
+[12-12-2022 21:18:02]	INFO	Loaded 180 hennas.
+[12-12-2022 21:18:02]	INFO	Loaded 675 buyLists.
+[12-12-2022 21:18:02]	INFO	Loaded 85 multisell.
+[12-12-2022 21:18:02]	INFO	Loaded 871 recipes.
+[12-12-2022 21:18:02]	INFO	Loaded 51 armor sets.
+[12-12-2022 21:18:02]	INFO	Loaded 270 fish.
+[12-12-2022 21:18:02]	INFO	Loaded 334 spellbooks.
+[12-12-2022 21:18:02]	INFO	Loaded 39 Soul Crystals data and 124 NPCs data.
+[12-12-2022 21:18:02]	INFO	Loaded 4 sets of augmentation stats.
+[12-12-2022 21:18:02]	INFO	Loaded 170 blue, 1070 purple and 540 red Life-Stone skills.
+[12-12-2022 21:18:02]	INFO	Loaded 2 cursed weapons.
+[12-12-2022 21:18:02]	INFO	-------------------------------------------------------------------=[ Admins ]
+[12-12-2022 21:18:02]	INFO	Loaded 10 access levels.
+[12-12-2022 21:18:02]	INFO	Loaded 101 admin command rights.
+[12-12-2022 21:18:02]	INFO	Loaded 0 bookmarks.
+[12-12-2022 21:18:02]	INFO	Loaded 0 petitions.
+[12-12-2022 21:18:02]	INFO	---------------------------------------------------------------=[ Characters ]
+[12-12-2022 21:18:02]	INFO	Loaded 89 player classes templates.
+[12-12-2022 21:18:02]	INFO	Loaded 1 player infos.
+[12-12-2022 21:18:02]	INFO	Loaded 81 player levels.
+[12-12-2022 21:18:02]	INFO	Loaded 0 RaidPoints entries.
+[12-12-2022 21:18:02]	INFO	Loaded 29 healSps entries.
+[12-12-2022 21:18:02]	INFO	---------------------------------------------------------=[ Community server ]
+[12-12-2022 21:18:02]	INFO	--------------------------------------------------------------------=[ Clans ]
+[12-12-2022 21:18:02]	INFO	Loaded 0 clans.
+[12-12-2022 21:18:02]	INFO	----------------------------------------------------=[ Geodata & Pathfinding ]
+[12-12-2022 21:18:03]	INFO	Loaded 139 L2J region files.
+[12-12-2022 21:18:03]	INFO	Loaded 31 node buffers.
+[12-12-2022 21:18:03]	INFO	--------------------------------------------------------------------=[ Zones ]
+[12-12-2022 21:18:06]	INFO	Loaded 23 zones classes and total 1015 zones.
+[12-12-2022 21:18:06]	INFO	-----------------------------------------------------=[ Castles & Clan Halls ]
+[12-12-2022 21:18:06]	INFO	Loaded 9 castles.
+[12-12-2022 21:18:06]	INFO	Loaded 44 clan halls and 6 siegable clan halls.
+[12-12-2022 21:18:06]	INFO	------------------------------------------------------------=[ Task Managers ]
+[12-12-2022 21:18:06]	INFO	Restored 0 items on ground.
+[12-12-2022 21:18:06]	INFO	--------------------------------------------------------------=[ Seven Signs ]
+[12-12-2022 21:18:06]	INFO	Currently on Competition (Quest Event) period.
+[12-12-2022 21:18:06]	INFO	The Seal of Gnosis remains unclaimed.
+[12-12-2022 21:18:06]	INFO	The Seal of Strife remains unclaimed.
+[12-12-2022 21:18:06]	INFO	The Seal of Avarice remains unclaimed.
+[12-12-2022 21:18:06]	INFO	The Seven Signs competition will end in a tie this week.
+[12-12-2022 21:18:06]	INFO	Next Seven Signs period change set to Mon Dec 19 18:00:00 GMT+07:00 2022.
+[12-12-2022 21:18:06]	INFO	Next Seven Signs period begins in 6 days, 20 hours and 41 mins.
+[12-12-2022 21:18:06]	INFO	The first Festival of Darkness cycle begins in 2 minute(s).
+[12-12-2022 21:18:06]	INFO	------------------------------------------------------------=[ Manor Manager ]
+[12-12-2022 21:18:06]	INFO	Loaded 121 manor areas.
+[12-12-2022 21:18:06]	INFO	Loaded 256 seeds.
+[12-12-2022 21:18:06]	INFO	---------------------------------------------------------------------=[ NPCs ]
+[12-12-2022 21:18:06]	INFO	Loaded 60 available buffs.
+[12-12-2022 21:18:06]	INFO	Loaded 6473 NPC templates.
+[12-12-2022 21:18:07]	INFO	Loaded 16 walking routes.
+[12-12-2022 21:18:07]	INFO	Loaded 547 doors templates.
+[12-12-2022 21:18:07]	INFO	Loaded 29 static objects.
+[12-12-2022 21:18:07]	INFO	Loaded 202 spawn data.
+[12-12-2022 21:18:08]	INFO	Loaded 11024 territories.
+[12-12-2022 21:18:08]	INFO	Loaded 11441 NPC makers.
+[12-12-2022 21:18:08]	INFO	Loaded 8 GrandBosses instances.
+[12-12-2022 21:18:08]	INFO	Loaded Dimensional Rift rooms.
+[12-12-2022 21:18:08]	INFO	Loaded 14 newbie buffs.
+[12-12-2022 21:18:08]	INFO	Loaded 72 instant teleport positions.
+[12-12-2022 21:18:08]	INFO	Loaded 117 teleport positions.
+[12-12-2022 21:18:08]	INFO	Loaded 13 observer groups and 25 spawns.
+[12-12-2022 21:18:08]	INFO	-------------------------------------------------------=[ Olympiads & Heroes ]
+[12-12-2022 21:18:08]	INFO	Loaded 22 stadiums.
+[12-12-2022 21:18:08]	INFO	28241 minutes until Olympiad period ends.
+[12-12-2022 21:18:08]	INFO	Next weekly Olympiad change is in 10043 minutes.
+[12-12-2022 21:18:08]	INFO	Loaded 0 nobles.
+[12-12-2022 21:18:08]	INFO	Olympiad competition period starts in 0 days, 0 hours and 0 mins.
+[12-12-2022 21:18:08]	INFO	Olympiad event starts/started @ Mon Dec 12 18:00:00 GMT+07:00 2022.
+[12-12-2022 21:18:08]	INFO	Loaded 0 heroes and 0 all time heroes.
+[12-12-2022 21:18:08]	INFO	---------------------------------------------------------=[ Quests & Scripts ]
+[12-12-2022 21:18:08]	INFO	Olympiad game started.
+[12-12-2022 21:18:09]	INFO	Spawned 11 "start_weapon" NPCs.
+[12-12-2022 21:18:09]	INFO	Bandit Stronghold siege scheduled for Mon Dec 26 12:00:00 GMT+07:00 2022.
+[12-12-2022 21:18:09]	INFO	Devastated Castle siege scheduled for Mon Dec 26 12:00:00 GMT+07:00 2022.
+[12-12-2022 21:18:09]	INFO	Fortress of Resistance siege scheduled for Mon Dec 26 12:00:00 GMT+07:00 2022.
+[12-12-2022 21:18:09]	INFO	Fortress of the Dead siege scheduled for Mon Dec 26 12:00:00 GMT+07:00 2022.
+[12-12-2022 21:18:09]	INFO	Rainbow Springs Chateau siege scheduled for Mon Dec 26 12:00:00 GMT+07:00 2022.
+[12-12-2022 21:18:09]	INFO	Wild Beast Reserve siege scheduled for Mon Dec 26 12:00:00 GMT+07:00 2022.
+[12-12-2022 21:18:09]	INFO	Loaded 417 regular scripts and 6 scheduled scripts.
+[12-12-2022 21:18:09]	INFO	-------------------------------------------------------------------=[ Events ]
+[12-12-2022 21:18:09]	INFO	Loaded 4 Derby Track records, currently on race #5.
+[12-12-2022 21:18:09]	INFO	-------------------------------------------------------------------=[ Spawns ]
+[12-12-2022 21:18:09]	WARNING	Territory name "oren21_2220_13", wrong Z 20, wrong geo 0
+[12-12-2022 21:18:09]	WARNING	Territory name "oren01_qm2220_03", wrong Z 20, wrong geo 0
+[12-12-2022 21:18:09]	WARNING	Territory name "oren21_2220_14", wrong Z 20, wrong geo 0
+[12-12-2022 21:18:10]	WARNING	Territory name "oren01_qm2220_02", wrong Z 20, wrong geo 0
+[12-12-2022 21:18:10]	INFO	Spawned 30837 NPCs.
+[12-12-2022 21:18:10]	INFO	Spawned 443 day NPCs, despawned 0 night NPCs.
+[12-12-2022 21:18:10]	INFO	Spawned 781 "extra_mob" NPCs.
+[12-12-2022 21:18:10]	INFO	Spawned 19 "18age" NPCs.
+[12-12-2022 21:18:10]	INFO	Spawned 2612 Seven Signs - Event NPCs.
+[12-12-2022 21:18:10]	INFO	-----------------------------------------------------------------=[ Handlers ]
+[12-12-2022 21:18:10]	INFO	Loaded 100 admin command handlers.
+[12-12-2022 21:18:10]	INFO	Loaded 13 chat handlers.
+[12-12-2022 21:18:10]	INFO	Loaded 26 item handlers.
+[12-12-2022 21:18:10]	INFO	Loaded 73 skill handlers.
+[12-12-2022 21:18:10]	INFO	Loaded 25 target handlers.
+[12-12-2022 21:18:10]	INFO	Loaded 15 user command handlers.
+[12-12-2022 21:18:10]	INFO	-------------------------------------------------------------------=[ System ]
+[12-12-2022 21:18:10]	INFO	Deadlock detector is disabled.
+[12-12-2022 21:18:10]	INFO	Gameserver has started, used memory: 1282 / 2048 Mo.
+[12-12-2022 21:18:10]	INFO	Maximum allowed players: 100.
+[12-12-2022 21:18:10]	INFO	--------------------------------------------------------------------=[ Login ]
+[12-12-2022 21:18:10]	INFO	Connecting to login on 192.168.0.188:9014.
+[12-12-2022 21:18:10]	INFO	Registered as server: [1] Bartz.
