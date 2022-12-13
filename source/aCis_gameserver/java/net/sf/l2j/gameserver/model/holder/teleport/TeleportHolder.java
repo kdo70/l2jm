@@ -1,19 +1,17 @@
 package net.sf.l2j.gameserver.model.holder.teleport;
 
-import net.sf.l2j.commons.data.StatSet;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class AreaHolder {
+public class TeleportHolder {
     private final int _id;
     protected List<LocationHolder> _locations = new ArrayList<>();
 
-    public AreaHolder(StatSet set) {
-        _id = set.getInteger("id");
+    public TeleportHolder(int id) {
+        _id = id;
     }
 
-    public int getId() {
+    public final int getId() {
         return _id;
     }
 

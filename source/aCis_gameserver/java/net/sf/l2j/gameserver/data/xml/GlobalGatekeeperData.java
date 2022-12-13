@@ -1,82 +1,69 @@
 package net.sf.l2j.gameserver.data.xml;
 
+import net.sf.l2j.commons.data.StatSet;
+import net.sf.l2j.commons.data.xml.IXmlReader;
+import net.sf.l2j.gameserver.model.holder.teleport.LocationHolder;
+import net.sf.l2j.gameserver.model.holder.teleport.TeleportHolder;
+import net.sf.l2j.gameserver.model.holder.teleport.TeleportMenuHolder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import net.sf.l2j.commons.data.StatSet;
-import net.sf.l2j.commons.data.xml.IXmlReader;
+public class GlobalGatekeeperData implements IXmlReader {
+    private final List<TeleportHolder> _teleports = new ArrayList<>();
+    private final List<TeleportMenuHolder> _menu = new ArrayList<>();
 
-import net.sf.l2j.gameserver.model.holder.NewbieBuffHolder;
+    protected GlobalGatekeeperData() {
+        load();
+    }
 
-import org.w3c.dom.Document;
+    @Override
+    public void load() {
+        parseFile("./data/xml/gatekeeper/teleports.xml");
+        LOGGER.info("Loaded {} teleports.", _teleports.size());
+    }
 
-/**
- * This class loads and store {@link NewbieBuffHolder} into a {@link List}.
- */
-public class NewbieBuffData implements IXmlReader
-{
-	private final List<NewbieBuffHolder> _buffs = new ArrayList<>();
-	
-	private int _magicLowestLevel = 100;
-	private int _physicLowestLevel = 100;
-	
-	protected NewbieBuffData()
-	{
-		load();
-	}
-	
-	@Override
-	public void load()
-	{
-		parseFile("./data/xml/newbieBuffs.xml");
-		LOGGER.info("Loaded {} newbie buffs.", _buffs.size());
-	}
-	
-	@Override
-	public void parseDocument(Document doc, Path path)
-	{
-		forEach(doc, "list", listNode -> forEach(listNode, "buff", buffNode ->
-		{
-			final StatSet set = parseAttributes(buffNode);
-			final int lowerLevel = set.getInteger("lowerLevel");
-			if (set.getBool("isMagicClass"))
-			{
-				if (lowerLevel < _magicLowestLevel)
-					_magicLowestLevel = lowerLevel;
-			}
-			else
-			{
-				if (lowerLevel < _physicLowestLevel)
-					_physicLowestLevel = lowerLevel;
-			}
-			_buffs.add(new NewbieBuffHolder(set));
-		}));
-	}
-	
-	/**
-	 * @param isMage : If true, return buffs list associated to mage classes.
-	 * @param level : Filter the list by the given level.
-	 * @return The {@link List} of valid {@link NewbieBuffHolder}s for the given class type and level.
-	 */
-	public List<NewbieBuffHolder> getValidBuffs(boolean isMage, int level)
-	{
-		return _buffs.stream().filter(b -> b.isMagicClassBuff() == isMage && level >= b.getLowerLevel() && level <= b.getUpperLevel()).collect(Collectors.toList());
-	}
-	
-	public int getLowestBuffLevel(boolean isMage)
-	{
-		return (isMage) ? _magicLowestLevel : _physicLowestLevel;
-	}
-	
-	public static NewbieBuffData getInstance()
-	{
-		return SingletonHolder.INSTANCE;
-	}
-	
-	private static class SingletonHolder
-	{
-		protected static final NewbieBuffData INSTANCE = new NewbieBuffData();
-	}
+    @Override
+    public void parseDocument(Document doc, Path path) {
+        forEach(doc, "list", listNode -> forEach(listNode, "teleport", teleportNode ->
+        {
+            final NamedNodeMap attrs = teleportNode.getAttributes();
+            final int id = Integer.parseInt(attrs.getNamedItem("id").getNodeValue());
+            final String type = parseString(attrs, "type");
+            final TeleportHolder teleport = new TeleportHolder(id);
+            forEach(teleportNode, "loc", locationNode ->
+            {
+                final StatSet set = parseAttributes(locationNode);
+                if (type.equals("menu")) {
+                    _menu.add(new TeleportMenuHolder(set));
+
+                } else {
+                    teleport.getLocations().add(new LocationHolder(set));
+                }
+            });
+            if (type.equals("list")) {
+                _teleports.add(id, teleport);
+            }
+        }));
+    }
+
+    public TeleportHolder getById(int id) {
+        return _teleports.get(id);
+    }
+
+    public List<TeleportMenuHolder> getMenu() {
+        return _menu;
+    }
+
+
+    public static GlobalGatekeeperData getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+
+    private static class SingletonHolder {
+        protected static final GlobalGatekeeperData INSTANCE = new GlobalGatekeeperData();
+    }
 }

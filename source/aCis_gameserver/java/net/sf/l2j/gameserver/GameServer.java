@@ -44,33 +44,7 @@ import net.sf.l2j.gameserver.data.sql.BookmarkTable;
 import net.sf.l2j.gameserver.data.sql.ClanTable;
 import net.sf.l2j.gameserver.data.sql.PlayerInfoTable;
 import net.sf.l2j.gameserver.data.sql.ServerMemoTable;
-import net.sf.l2j.gameserver.data.xml.AdminData;
-import net.sf.l2j.gameserver.data.xml.AnnouncementData;
-import net.sf.l2j.gameserver.data.xml.ArmorSetData;
-import net.sf.l2j.gameserver.data.xml.AugmentationData;
-import net.sf.l2j.gameserver.data.xml.DoorData;
-import net.sf.l2j.gameserver.data.xml.FishData;
-import net.sf.l2j.gameserver.data.xml.HealSpsData;
-import net.sf.l2j.gameserver.data.xml.HennaData;
-import net.sf.l2j.gameserver.data.xml.InstantTeleportData;
-import net.sf.l2j.gameserver.data.xml.ItemData;
-import net.sf.l2j.gameserver.data.xml.ManorAreaData;
-import net.sf.l2j.gameserver.data.xml.MapRegionData;
-import net.sf.l2j.gameserver.data.xml.MultisellData;
-import net.sf.l2j.gameserver.data.xml.NewbieBuffData;
-import net.sf.l2j.gameserver.data.xml.NpcData;
-import net.sf.l2j.gameserver.data.xml.ObserverGroupData;
-import net.sf.l2j.gameserver.data.xml.PlayerData;
-import net.sf.l2j.gameserver.data.xml.PlayerLevelData;
-import net.sf.l2j.gameserver.data.xml.RecipeData;
-import net.sf.l2j.gameserver.data.xml.ScriptData;
-import net.sf.l2j.gameserver.data.xml.SkillTreeData;
-import net.sf.l2j.gameserver.data.xml.SoulCrystalData;
-import net.sf.l2j.gameserver.data.xml.SpellbookData;
-import net.sf.l2j.gameserver.data.xml.StaticObjectData;
-import net.sf.l2j.gameserver.data.xml.SummonItemData;
-import net.sf.l2j.gameserver.data.xml.TeleportData;
-import net.sf.l2j.gameserver.data.xml.WalkerRouteData;
+import net.sf.l2j.gameserver.data.xml.*;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
@@ -228,7 +202,8 @@ public class GameServer
 		InstantTeleportData.getInstance();
 		TeleportData.getInstance();
 		ObserverGroupData.getInstance();
-		
+		GlobalGatekeeperData.getInstance();
+
 		CastleManager.getInstance().loadArtifacts();
 		
 		StringUtil.printSection("Olympiads & Heroes");

@@ -1,20 +1,20 @@
 package net.sf.l2j.gameserver.model.holder.teleport;
 
 import net.sf.l2j.commons.data.StatSet;
-import net.sf.l2j.gameserver.model.multisell.Entry;
 
-import java.util.ArrayList;
-import java.util.List;
+public class LocationHolder {
+    private final String _name;
+    private final String _capital;
 
-public class TeleportListHolder {
-    private final int _id;
-    protected List<TeleportListHolder> _list = new ArrayList<>();
-
-    public TeleportListHolder(StatSet set) {
-        _id = set.getInteger("id");
+    public LocationHolder(StatSet set) {
+        _name = set.getString("name");
+        _capital = set.getString("capital");
     }
 
-    public int getId() {
-        return _id;
+    public final String getName() {
+        return _name;
+    }
+    public final String getCapital() {
+        return _capital;
     }
 }

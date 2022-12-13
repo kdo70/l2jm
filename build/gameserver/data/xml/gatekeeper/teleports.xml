@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+    <teleport id="-1" type="menu">
+        <loc name="Towns" bypass="Chat" color="1"/>
+        <loc name="Villages" bypass="Chat" color="2"/>
+        <loc name="Popular" bypass="List" color="3"/>
+        <loc name="Other" bypass="List" color="4"/>
+        <loc name="Store" bypass="multisell" color="5"/>
+        <loc name="Quest" bypass="Quest" color="A3A0A3"/>
+    </teleport>
+    <teleport id="0" type="list">
+        <loc name="Town of Dion" capital="Dion"/>
+        <loc name="Town of Gludio" capital="Gludio"/>
+        <loc name="Town of Giran" capital="Giran"/>
+        <loc name="Town of Goddard" capital="Goddard"/>
+        <loc name="Town of Aden" capital="Aden"/>
+        <loc name="Town of Schuttgart" capital="Schuttgart"/>
+        <loc name="Town of Rune" capital="Rune"/>
+        <loc name="Town of Heine" capital="Heine"/>
+        <loc name="Town of Oren" capital="Oren"/>
+    </teleport>
+</list>
