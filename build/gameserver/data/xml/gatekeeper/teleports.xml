@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
-    <teleport id="-1" type="menu">
-        <loc name="Towns" bypass="Chat" color="1"/>
-        <loc name="Villages" bypass="Chat" color="2"/>
-        <loc name="Popular" bypass="List" color="3"/>
-        <loc name="Other" bypass="List" color="4"/>
-        <loc name="Store" bypass="multisell" color="5"/>
-        <loc name="Quest" bypass="Quest" color="A3A0A3"/>
+    <teleport id="0" type="menu">
+        <loc name="Towns" bypass="Quest GlobalGatekeeper List 1"/>
+        <loc name="Villages" bypass="Quest GlobalGatekeeper List 2"/>
+        <loc name="Popular" bypass="Quest GlobalGatekeeper Locations 3"/>
+        <loc name="Other" bypass="Quest GlobalGatekeeper Locations 4"/>
+        <loc name="Store" bypass="npc_%objectId%_multisell 002" color="6697FF"/>
+        <loc name="Quest" bypass="npc_%objectId%_Quest" color="A3A0A3"/>
     </teleport>
-    <teleport id="0" type="list">
-        <loc name="Town of Dion" capital="Dion"/>
+    <teleport id="1" type="list" menuId="0">
+        <loc name="Town of Dion" capital="Dion" bypass="Locations" id="4"/>
         <loc name="Town of Gludio" capital="Gludio"/>
         <loc name="Town of Giran" capital="Giran"/>
         <loc name="Town of Goddard" capital="Goddard"/>
@@ -18,5 +18,48 @@
         <loc name="Town of Rune" capital="Rune"/>
         <loc name="Town of Heine" capital="Heine"/>
         <loc name="Town of Oren" capital="Oren"/>
+    </teleport>
+    <teleport id="2" type="list" menuId="1">
+        <loc name="Floran Village" capital="Floran"/>
+        <loc name="Gludin Village" capital="Gludin"/>
+        <loc name="Hunters Village" capital="Hunters"/>
+        <loc name="Talking Island Village" capital="Talking Island"/>
+        <loc name="Elven Village" capital="Elven"/>
+        <loc name="Dark Elven Village" capital="Dark Elven"/>
+        <loc name="Orc Village" capital="Orc"/>
+        <loc name="Dwarven Village" capital="Dwarven"/>
+    </teleport>
+    <teleport id="3" type="locations" parentId="0">
+        <loc name="Town of Dion" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="15637" y="142947" z="-2696" castleId="2"/>
+        <loc name="Town of Gludio" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="-12739" y="122740" z="-3112" castleId="1"/>
+        <loc name="Town of Giran" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="83393" y="147975" z="-3400" castleId="3"/>
+        <loc name="Town of Goddard" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="147964" y="-55305" z="-2728" castleId="7"/>
+        <loc name="Town of Aden" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="146811" y="25810" z="-2008" castleId="5"/>
+        <loc name="Town of Schuttgard" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="87053" y="-143387" z="-1288" castleId="9"/>
+        <loc name="Town of Rune" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="43831" y="-47748" z="-792" castleId="8"/>
+        <loc name="Town of Heine" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="111385" y="219338" z="-3544" castleId="6"/>
+        <loc name="Town of Oren" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="82917" y="53173" z="-1488" castleId="4"/>
+        <loc name="Floran Village" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="17430" y="170103" z="-3506" />
+        <loc name="Gludin Village" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="-80804" y="149833" z="-3040" />
+        <loc name="Hunters Village" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="117052" y="76905" z="-2704" />
+        <loc name="Talking Island Village" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="-84153" y="244542" z="-3728" />
+        <loc name="Elven Village" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="46874" y="51457" z="-2976" />
+        <loc name="Dark Elf Village" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="9738" y="15567" z="-4568" />
+        <loc name="Orc Village" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="-45177" y="-112512" z="-240" />
+        <loc name="Dwarven Village" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="115129" y="-178177" z="-912" />
+    </teleport>
+    <teleport id="4" type="locations">
+        <loc name="Town of Dion" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="15637" y="142947" z="-2696" castleId="2"/>
+        <loc name="Cruma Marshlands" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="5106" y="126916" z="-3664"/>
+        <loc name="Cruma Marshlands" bypass="Teleport" point="Center" type="NOBLE" priceId="57" priceCount="125" x="5941" y="125455" z="-3400"/>
+        <loc name="Cruma Tower" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="17225" y="114173" z="-3440"/>
+        <loc name="Cruma Tower" bypass="Teleport" point="First Floor" type="NOBLE" priceId="57" priceCount="125" x="17724" y="113950" z="-11672"/>
+        <loc name="Cruma Tower" bypass="Teleport" point="Second Floor" type="NOBLE" priceId="57" priceCount="125" x="17723" y="108284" z="-9056"/>
+        <loc name="Fortress of Resistanance" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="47382" y="111278" z="-2104"/>
+        <loc name="Plains of Dion" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="630" y="179184" z="-3720"/>
+        <loc name="Bee Hive" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="34475" y="188095" z="-2976"/>
+        <loc name="Tanor Canyon" bypass="Teleport" point="" type="STANDARD" priceId="57" priceCount="125" x="60374" y="164301" z="-2856"/>
+        <loc name="Execution Ground" bypass="Teleport" point="" type="NOBLE" priceId="57" priceCount="125" x="46165" y="150008" z="-3208"/>
+        <loc name="Floran Agricultural Area" bypass="Teleport" point="" type="NOBLE" priceId="57" priceCount="125" x="15227" y="161866" z="-3608"/>
     </teleport>
 </list>

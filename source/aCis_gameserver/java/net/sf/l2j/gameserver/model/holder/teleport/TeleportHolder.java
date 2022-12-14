@@ -1,5 +1,7 @@
 package net.sf.l2j.gameserver.model.holder.teleport;
 
+import net.sf.l2j.commons.data.StatSet;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
 public class TeleportHolder {
 
     private final int _id;
+    private final int _menuId;
 
     /**
      * Locations
@@ -16,10 +19,11 @@ public class TeleportHolder {
     protected List<LocationHolder> _locations = new ArrayList<>();
 
     /**
-     * @param id id
+     * @param set set
      */
-    public TeleportHolder(int id) {
-        _id = id;
+    public TeleportHolder(StatSet set) {
+        _id = set.getInteger("id", 0);
+        _menuId = set.getInteger("menuId", 0);
     }
 
     /**
@@ -30,9 +34,23 @@ public class TeleportHolder {
     }
 
     /**
+     * @return menuId
+     */
+    public final int getMenuId() {
+        return _menuId;
+    }
+
+    /**
      * @return locations
      */
     public List<LocationHolder> getLocations() {
         return _locations;
+    }
+
+    /**
+     * @return size
+     */
+    public int getSize() {
+        return _locations.size();
     }
 }
