@@ -1,18 +1,26 @@
 package net.sf.l2j.gameserver.data.xml;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.commons.data.StatSet;
 import net.sf.l2j.commons.data.xml.IXmlReader;
-import net.sf.l2j.gameserver.model.holder.teleport.LocationHolder;
-import net.sf.l2j.gameserver.model.holder.teleport.TeleportHolder;
+import net.sf.l2j.gameserver.enums.TeleportType;
+import net.sf.l2j.gameserver.model.actor.Player;
+import net.sf.l2j.gameserver.model.holder.teleport.TeleportAreaHolder;
+import net.sf.l2j.gameserver.model.holder.teleport.TeleportItemHolder;
+import net.sf.l2j.gameserver.model.holder.teleport.TeleportLocationHolder;
+import net.sf.l2j.gameserver.model.holder.teleport.TeleportMenuHolder;
+import net.sf.l2j.gameserver.model.location.Location;
+import net.sf.l2j.gameserver.taskmanager.GameTimeTaskManager;
 import org.w3c.dom.Document;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class GlobalGatekeeperData implements IXmlReader {
-    private final List<TeleportHolder> _teleports = new ArrayList<>();
+    private final List<TeleportMenuHolder> _teleports = new ArrayList<>();
 
     protected GlobalGatekeeperData() {
         load();
@@ -26,40 +34,57 @@ public class GlobalGatekeeperData implements IXmlReader {
 
     @Override
     public void parseDocument(Document doc, Path path) {
-        forEach(doc, "list", listNode -> forEach(listNode, "teleport", teleportNode ->
+        forEach(doc, "list", listNode -> forEach(listNode, "menu", teleportMenu ->
         {
-            final StatSet teleportSet = parseAttributes(teleportNode);
-            final TeleportHolder teleport = new TeleportHolder(teleportSet);
-            forEach(teleportNode, "loc", locationNode ->
+            final StatSet teleportSet = parseAttributes(teleportMenu);
+            final TeleportMenuHolder teleport = new TeleportMenuHolder(teleportSet);
+
+            forEach(teleportMenu, "item", teleportItems ->
             {
-                final StatSet set = parseAttributes(locationNode);
-                teleport.getLocations().add(new LocationHolder(set));
+                final StatSet teleportItemSet = parseAttributes(teleportItems);
+                final TeleportItemHolder item = new TeleportItemHolder(teleportItemSet);
+
+                forEach(teleportItems, "area", teleportArea ->
+                {
+                    final StatSet teleportAreaSet = parseAttributes(teleportArea);
+                    final TeleportAreaHolder area = new TeleportAreaHolder(teleportAreaSet);
+
+                    forEach(teleportArea, "loc", teleportLocation ->
+                    {
+                        final StatSet teleportLocationSet = parseAttributes(teleportLocation);
+                        area.getLocations().add(new TeleportLocationHolder(teleportLocationSet));
+                    });
+
+                    item.getAreas().add(area);
+                });
+
+                teleport.getItems().add(item);
             });
+
             _teleports.add(teleport.getId(), teleport);
         }));
     }
 
-    public TeleportHolder getById(int id) {
+    public TeleportMenuHolder getById(int id) {
         return _teleports.get(id);
     }
 
-    public String getMenu(int id, int menuId) {
-        TeleportHolder teleport = getById(id);
-        TeleportHolder current = getById(menuId);
-        List<LocationHolder> locations = teleport.getLocations();
+    public String getMenu(int id, int menuItemId) {
+        TeleportMenuHolder menu = getById(id);
+        List<TeleportItemHolder> items = menu.getItems();
         final StringBuilder sb = new StringBuilder();
 
         int index = 0;
-        for (LocationHolder location : locations) {
+        for (TeleportItemHolder item : items) {
             sb
                     .append("<td width=35 align=\"center\">")
                     .append("<a action=\"bypass -h ")
-                    .append(location.getBypass())
+                    .append(item.getBypass())
                     .append("\">")
                     .append("<font color=")
-                    .append(getMenuColor(location, current.getMenuId(), index))
+                    .append(getMenuColor(item, index, menuItemId))
                     .append(">")
-                    .append(location.getName())
+                    .append(item.getName())
                     .append("</font>")
                     .append("</a>")
                     .append("</td>")
@@ -70,9 +95,9 @@ public class GlobalGatekeeperData implements IXmlReader {
         return sb.toString();
     }
 
-    public String getMenuColor(LocationHolder location, int listId, int index) {
-        String color = location.getColor();
-        if (color == null && index == listId) {
+    public String getMenuColor(TeleportItemHolder menuItem, int index, int menuItemId) {
+        String color = menuItem.getColor();
+        if (color == null && index == menuItemId) {
             color = "B09878";
         } else if (color == null) {
             color = "6697FF";
@@ -80,65 +105,88 @@ public class GlobalGatekeeperData implements IXmlReader {
         return color;
     }
 
-    public String getList(int id) {
-        TeleportHolder teleport = GlobalGatekeeperData.getInstance().getById(id);
-        List<LocationHolder> locations = teleport.getLocations();
+    public String getList(Player player, int menuId, int menuItemId) {
+        TeleportMenuHolder menu = getById(menuId);
+        TeleportItemHolder item = menu.getItems().get(menuItemId);
+        List<TeleportAreaHolder> areas = item.getAreas();
         final StringBuilder sb = new StringBuilder();
-        for (LocationHolder location : locations) {
+        int index = 0;
+
+        for (TeleportAreaHolder area : areas) {
+            final int price = calculatedPriceCount(player, area.getLocations().get(0));
             sb
                     .append("<table width=280 bgcolor=000000>")
                     .append("<tr>")
                     .append("<td width=130>")
-                    .append("<a action=\"bypass -h Quest GlobalGatekeeper ")
-                    .append(location.getBypass())
+                    .append("<a action=\"bypass -h Quest GlobalGatekeeper Locations")
                     .append(" ")
-                    .append(teleport.getMenuId())
+                    .append(menuId)
                     .append(" ")
-                    .append(location.getId())
+                    .append(menuItemId)
+                    .append(" ")
+                    .append(index)
                     .append("\">")
-                    .append(location.getName())
+                    .append(area.getName())
                     .append("</a>")
                     .append("</td>")
                     .append("<td width=100>")
                     .append("<font color=A3A0A3>")
-                    .append(teleport.getSize())
+                    .append(String.format(Locale.US, "%,d", price))
                     .append("</font>")
                     .append("</td>")
                     .append("<td width=80>")
-                    .append("<a action=\"Quest GlobalGatekeeper Teleport 1 1\">")
+                    .append("<a action=\"bypass -h Quest GlobalGatekeeper Teleport")
+                    .append(" ")
+                    .append(menuId)
+                    .append(" ")
+                    .append(menuItemId)
+                    .append(" ")
+                    .append(index)
+                    .append(" ")
+                    .append(0)
+                    .append("\">")
                     .append("<font color=B09878>")
-                    .append(location.getCapital())
+                    .append(area.getCapital())
                     .append("</font>")
                     .append("</a>")
                     .append("</td>")
                     .append("</tr>")
                     .append("</table>")
                     .append("<img src=L2UI.SquareGray width=280 height=1>");
+            index++;
         }
         return sb.toString();
     }
 
-    public String getLocations(int id) {
-        TeleportHolder teleport = GlobalGatekeeperData.getInstance().getById(id);
-        List<LocationHolder> locations = teleport.getLocations();
-        final StringBuilder sb = new StringBuilder();
-        int locationId = 0;
+    public String getLocations(Player player, int menuId, int menuItemId, int areaId) {
+        TeleportMenuHolder menu = getById(menuId);
+        TeleportItemHolder item = menu.getItems().get(menuItemId);
+        TeleportAreaHolder area = item.getAreas().get(areaId);
+        List<TeleportLocationHolder> locations = area.getLocations();
 
-        for (LocationHolder location : locations) {
+        final StringBuilder sb = new StringBuilder();
+
+        int index = 0;
+        for (TeleportLocationHolder location : locations) {
+            if (location.getType() == TeleportType.NOBLE && !player.isNoble()) {
+                continue;
+            }
             StringTokenizer tokenizer = new StringTokenizer(ItemData.getInstance().getTemplate(location.getPriceId()).getName());
             String itemName = tokenizer.hasMoreTokens() ? tokenizer.nextToken() : "";
-            int priceCount = 0;
-
+            int priceCount = calculatedPriceCount(player, location);
             sb
                     .append("<table width=280 bgcolor=000000>")
                     .append("<tr>")
                     .append("<td width=170>")
-                    .append("<a action=\"bypass -h Quest GlobalGatekeeper ")
-                    .append(location.getBypass())
+                    .append("<a action=\"bypass -h Quest GlobalGatekeeper Teleport")
                     .append(" ")
-                    .append(teleport.getId())
+                    .append(menuId)
                     .append(" ")
-                    .append(locationId)
+                    .append(menuItemId)
+                    .append(" ")
+                    .append(areaId)
+                    .append(" ")
+                    .append(index)
                     .append("\"")
                     .append("msg=\"811;")
                     .append(location.getName())
@@ -151,7 +199,7 @@ public class GlobalGatekeeperData implements IXmlReader {
                     .append(location.getPoint())
                     .append("</td>")
                     .append("<td width=55>")
-                    .append(priceCount)
+                    .append(String.format(Locale.US, "%,d", priceCount))
                     .append("</font>")
                     .append("</td>")
                     .append("<td width=50>")
@@ -163,9 +211,38 @@ public class GlobalGatekeeperData implements IXmlReader {
                     .append("</table>")
                     .append("<img src=L2UI.SquareGray width=280 height=1>");
 
-            locationId++;
+            index++;
         }
         return sb.toString();
+    }
+
+    public int calculatedPriceCount(Player player, TeleportLocationHolder teleport) {
+        if (Config.FREE_TELEPORT && Config.FREE_TELEPORT_LVL > 0
+                && !player.isSubClassActive() && Config.FREE_TELEPORT_LVL >= player.getStatus().getLevel()
+                && teleport.getPriceId() == 57) {
+            return 0;
+        }
+
+        int calculatedPrice = teleport.getPriceCount() == 0 ? Config.TELEPORT_BASE_PRICE : teleport.getPriceCount();
+
+        if (teleport.getPriceId() == 57) {
+            double distant = player.distance2D(new Location(teleport.getX(), teleport.getY(), teleport.getZ()));
+            int distantMul = (int) distant / 1000;
+            if (distantMul < 1) {
+                distantMul = 1;
+            }
+            calculatedPrice *= distantMul;
+        }
+
+        float levelMul = player.isSubClassActive() ? 80 : player.getStatus().getLevel();
+        levelMul = 1 + levelMul / 100;
+        calculatedPrice *= levelMul;
+
+        float currentHour = GameTimeTaskManager.getInstance().getGameHour();
+        currentHour = 1 + currentHour / 100;
+        calculatedPrice *= currentHour;
+
+        return calculatedPrice;
     }
 
     public static GlobalGatekeeperData getInstance() {

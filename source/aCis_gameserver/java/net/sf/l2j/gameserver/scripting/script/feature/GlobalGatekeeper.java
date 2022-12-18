@@ -1,9 +1,13 @@
 package net.sf.l2j.gameserver.scripting.script.feature;
 
+import net.sf.l2j.gameserver.data.manager.CastleManager;
 import net.sf.l2j.gameserver.data.xml.GlobalGatekeeperData;
+import net.sf.l2j.gameserver.enums.TeleportType;
 import net.sf.l2j.gameserver.model.actor.Npc;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.model.holder.teleport.TeleportHolder;
+import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.holder.teleport.TeleportLocationHolder;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.scripting.Quest;
@@ -12,15 +16,18 @@ import java.util.StringTokenizer;
 
 public class GlobalGatekeeper extends Quest {
 
+    protected final int menuId = 0;
+
     public GlobalGatekeeper() {
         super(-1, "feature");
-        addTalkId(30059);
-        addFirstTalkId(30059);
+        addTalkId(30059, 30080, 30878);
+        addFirstTalkId(30059, 30080, 30878);
     }
 
     @Override
     public String onFirstTalk(Npc npc, Player player) {
-        return sendList(npc, player, 1);
+        String event = "";
+        return sendList(npc, player, event);
     }
 
     @Override
@@ -29,10 +36,8 @@ public class GlobalGatekeeper extends Quest {
             return actionFailed(player);
         }
 
-        LOGGER.info(event);
-
         if (event.startsWith("List")) {
-            return sendList(npc, player, getIndex(event));
+            return sendList(npc, player, event);
         }
 
         if (event.startsWith("Locations")) {
@@ -46,11 +51,13 @@ public class GlobalGatekeeper extends Quest {
         return actionFailed(player);
     }
 
-    public String sendList(Npc npc, Player player, int index) {
+    public String sendList(Npc npc, Player player, String event) {
         final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
+        final StringTokenizer string = getEvent(event);
+        int menuItemId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
 
-        String menu = GlobalGatekeeperData.getInstance().getMenu(0, index);
-        String list = GlobalGatekeeperData.getInstance().getList(index);
+        String menu = GlobalGatekeeperData.getInstance().getMenu(this.menuId, menuItemId);
+        String list = GlobalGatekeeperData.getInstance().getList(player, this.menuId, menuItemId);
 
         html.setFile("data/html/mods/gk/index.htm");
         html.replace("%menu%", menu);
@@ -61,15 +68,16 @@ public class GlobalGatekeeper extends Quest {
     }
 
     public String sendLocations(Npc npc, Player player, String event) {
-        final StringTokenizer string = new StringTokenizer(event, " ");
-        string.nextToken();
-        int parentId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 1;
-        int teleportId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 1;
+        final StringTokenizer string = getEvent(event);
+
+        int menuId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : this.menuId;
+        int menuItemId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
+        int areaId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
 
         final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
 
-        String menu = GlobalGatekeeperData.getInstance().getMenu(0, parentId);
-        String locations = GlobalGatekeeperData.getInstance().getLocations(teleportId);
+        String menu = GlobalGatekeeperData.getInstance().getMenu(menuId, menuItemId);
+        String locations = GlobalGatekeeperData.getInstance().getLocations(player, menuId, menuItemId, areaId);
 
         html.setFile("data/html/mods/gk/locations.htm");
         html.replace("%menu%", menu);
@@ -80,13 +88,35 @@ public class GlobalGatekeeper extends Quest {
     }
 
     public void teleport(Npc npc, Player player, String event) {
-        LOGGER.info(1);
-        final StringTokenizer string = new StringTokenizer(event, " ");
-        string.nextToken();
-        int teleportId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 1;
-        int locationId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 1;
-        TeleportHolder teleport = GlobalGatekeeperData.getInstance().getById(teleportId);
-        player.teleportTo(teleport.getLocations().get(locationId), 20);
+        final StringTokenizer string = getEvent(event);
+
+        int menuId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : this.menuId;
+        int menuItemId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
+        int areaId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
+        int locationId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
+
+        TeleportLocationHolder location = GlobalGatekeeperData.getInstance()
+                .getById(menuId)
+                .getItems().get(menuItemId)
+                .getAreas().get(areaId)
+                .getLocations().get(locationId);
+
+        if (location.getCastleId() > 0) {
+            final Castle castle = CastleManager.getInstance().getCastleById(location.getCastleId());
+            if (castle != null && castle.getSiege().isInProgress()) {
+                player.sendPacket(SystemMessageId.CANNOT_PORT_VILLAGE_IN_SIEGE);
+                return;
+            }
+        }
+
+        if (location.getType() == TeleportType.NOBLE && !player.isNoble()) {
+            return;
+        }
+
+        final int priceCount = GlobalGatekeeperData.getInstance().calculatedPriceCount(player, location);
+        if (priceCount == 0 || player.destroyItemByItemId("InstantTeleport", location.getPriceId(), priceCount, npc, true)) {
+            player.teleportTo(location, 20);
+        }
     }
 
     public NpcHtmlMessage replaceNpcData(NpcHtmlMessage html, Npc npc) {
@@ -96,10 +126,12 @@ public class GlobalGatekeeper extends Quest {
         return html;
     }
 
-    public int getIndex(String command) {
-        final StringTokenizer string = new StringTokenizer(command, " ");
-        string.nextToken();
-        return string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 1;
+    public StringTokenizer getEvent(String event) {
+        final StringTokenizer string = new StringTokenizer(event, " ");
+        if (string.hasMoreTokens()) {
+            string.nextToken();
+        }
+        return string;
     }
 
     private String actionFailed(Player player) {

@@ -16,6 +16,8 @@ public enum TeleportType
 	 * Reference item: 8542
 	 */
 	NEWBIE_TOKEN,
+
+	NOBLE,
 	
 	/**
 	 * AI.obj equivalent: "NoblessNeedItemField"<br>
