@@ -1130,9 +1130,6 @@ Gludin Area
 		<node x="-80684" y="149796" />
 		<node x="-80884" y="149796" />
 	</territory>
-	<npcmaker name="gludio06_npc1722_tk01" territory="gludio06_npc1722_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="-80785;149735;-3040;23000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="gludio06_npc1722_tw1" minZ="-3139" maxZ="-2939">

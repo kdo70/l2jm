@@ -934,9 +934,6 @@ Aden Area
 		<node x="146836" y="25860" />
 		<node x="146636" y="25860" />
 	</territory>
-	<npcmaker name="aden13_npc2418_tk01" territory="aden13_npc2418_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="146738;25756;-2008;0" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="aden13_npc2418_tw01" minZ="-2048" maxZ="-1848">

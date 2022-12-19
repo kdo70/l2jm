@@ -845,9 +845,6 @@ Hunters Area
 		<node x="117252" y="76948" />
 		<node x="117052" y="76948" />
 	</territory>
-	<npcmaker name="aden14_npc2320_tk01" territory="aden14_npc2320_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="117148;76865;-2688;34000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="aden14_npc2320_tw01" minZ="-2779" maxZ="-2579">

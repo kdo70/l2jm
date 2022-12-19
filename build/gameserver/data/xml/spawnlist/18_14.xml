@@ -652,9 +652,6 @@ Orc Area
 		<node x="-45148" y="-112380" />
 		<node x="-45348" y="-112380" />
 	</territory>
-	<npcmaker name="lyonn03_npc1814_tk01" territory="lyonn03_npc1814_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30994" pos="-45266;-112468;-240;500" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="lyonn03_npc1814_wp1" minZ="-292" maxZ="-92">

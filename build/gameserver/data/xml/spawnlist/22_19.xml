@@ -851,9 +851,6 @@ Oren Area
 		<node x="83092" y="53332" />
 		<node x="82892" y="53332" />
 	</territory>
-	<npcmaker name="oren17_npc2219_tk01" territory="oren17_npc2219_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="83001;53224;-1488;31000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="oren17_npc2219_tw01" minZ="-1539" maxZ="-1339">

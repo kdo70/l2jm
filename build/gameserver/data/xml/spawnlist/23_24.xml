@@ -829,9 +829,6 @@ Heine Area
 		<node x="111508" y="219524" />
 		<node x="111308" y="219524" />
 	</territory>
-	<npcmaker name="innadril09_npc2324_tk01" territory="innadril09_npc2324_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="111417;219422;-3544;48000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="innadril09_npc2324_tw01" minZ="-3585" maxZ="-3385">

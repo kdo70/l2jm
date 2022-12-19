@@ -508,9 +508,6 @@ Talking Island
 		<node x="-84028" y="244724" />
 		<node x="-84228" y="244724" />
 	</territory>
-	<npcmaker name="gludio25_npc1725_tk01" territory="gludio25_npc1725_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="-84143;244637;-3728;41000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="gludio25_npc1725_wp1" minZ="-3776" maxZ="-3576">

@@ -1363,9 +1363,6 @@ Giran Area
 		<node x="83460" y="148004" />
 		<node x="83260" y="148004" />
 	</territory>
-	<npcmaker name="giran11_npc2222_tk01" territory="giran11_npc2222_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="83331;147905;-3400;16700" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="giran11_npc2222_tw01" minZ="-3520" maxZ="-3320">

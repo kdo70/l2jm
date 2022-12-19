@@ -990,9 +990,6 @@ Dion Area
 		<node x="15828" y="142996" />
 		<node x="15628" y="142996" />
 	</territory>
-	<npcmaker name="dion09_npc2022_tk01" territory="dion09_npc2022_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="15693;142886;-2696;16000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="dion09_npc2022_tw01" minZ="-2770" maxZ="-2570">

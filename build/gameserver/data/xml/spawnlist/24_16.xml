@@ -1027,9 +1027,6 @@ Goddard Area
 		<node x="148100" y="-55084" />
 		<node x="147900" y="-55084" />
 	</territory>
-	<npcmaker name="godard02_npc2416_tk01" territory="godard02_npc2416_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="147908;-55221;-2728;48000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="godard02_npc2416_tw01" minZ="-2820" maxZ="-2620">

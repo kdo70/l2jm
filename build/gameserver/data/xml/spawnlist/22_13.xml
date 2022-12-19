@@ -1303,9 +1303,6 @@ Shuttgart Area
 		<node x="87191" y="-143343" />
 		<node x="86991" y="-143343" />
 	</territory>
-	<npcmaker name="schuttgart01_npcxxxx_1601" territory="schuttgart01_npcxxxx_16" spawn="ALL" maximumNpcs="1">
-		<npc id="30994" pos="87091;-143443;-1293;13029" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="schuttgart01_npcxxxx_17" minZ="-1403" maxZ="-1283">

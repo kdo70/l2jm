@@ -1005,9 +1005,6 @@ Gludio Area
 		<node x="-12556" y="122932" />
 		<node x="-12756" y="122932" />
 	</territory>
-	<npcmaker name="gludio08_npc1921_tk01" territory="gludio08_npc1921_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="-12676;122821;-3112;48000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="gludio08_npc1921_tw1" minZ="-3152" maxZ="-2952">

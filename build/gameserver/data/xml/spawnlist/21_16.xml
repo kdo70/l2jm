@@ -1108,9 +1108,6 @@ Rune Area
 		<node x="43908" y="-47548" />
 		<node x="43576" y="-47600" />
 	</territory>
-	<npcmaker name="rune02_npc2116_tk01" territory="rune02_npc2116_tk01" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="43664;-47664;-800;50000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="rune02_npc2116_tw01" minZ="-872" maxZ="-672">

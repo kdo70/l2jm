@@ -291,9 +291,6 @@ Dion Area
 		<node x="13124" y="181732" />
 		<node x="12924" y="181732" />
 	</territory>
-	<npcmaker name="dion10_npc2023_tk02" territory="dion10_npc2023_tk02" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="13015;181610;-3560;16000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="dion10_npc2023_tk03" minZ="-3606" maxZ="-3406">
@@ -302,9 +299,6 @@ Dion Area
 		<node x="13748" y="182724" />
 		<node x="13548" y="182724" />
 	</territory>
-	<npcmaker name="dion10_npc2023_tk03" territory="dion10_npc2023_tk03" spawn="ALL" maximumNpcs="1" event="18age">
-		<npc id="30990" pos="13637;182626;-3560;48000" total="1" respawnDelay="1m"/>
-	</npcmaker>
 	
 	<!--  -->
 	<territory name="dion10_npc2023_xm01" minZ="-3616" maxZ="-3416">
