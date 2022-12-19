@@ -3,12 +3,14 @@ package net.sf.l2j.gameserver.data.xml;
 import net.sf.l2j.Config;
 import net.sf.l2j.commons.data.StatSet;
 import net.sf.l2j.commons.data.xml.IXmlReader;
+import net.sf.l2j.commons.lang.StringUtil;
 import net.sf.l2j.gameserver.enums.TeleportType;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.holder.teleport.TeleportAreaHolder;
 import net.sf.l2j.gameserver.model.holder.teleport.TeleportItemHolder;
 import net.sf.l2j.gameserver.model.holder.teleport.TeleportLocationHolder;
 import net.sf.l2j.gameserver.model.holder.teleport.TeleportMenuHolder;
+import net.sf.l2j.gameserver.model.item.kind.Item;
 import net.sf.l2j.gameserver.model.location.Location;
 import net.sf.l2j.gameserver.taskmanager.GameTimeTaskManager;
 import org.w3c.dom.Document;
@@ -19,9 +21,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+/**
+ * Global gatekeeper data
+ */
 public class GlobalGatekeeperData implements IXmlReader {
     private final List<TeleportMenuHolder> _teleports = new ArrayList<>();
 
+    /**
+     * Global gatekeeper data
+     */
     protected GlobalGatekeeperData() {
         load();
     }
@@ -65,10 +73,19 @@ public class GlobalGatekeeperData implements IXmlReader {
         }));
     }
 
+    /**
+     * @param id id
+     * @return TeleportMenuHolder
+     */
     public TeleportMenuHolder getById(int id) {
         return _teleports.get(id);
     }
 
+    /**
+     * @param id         id
+     * @param menuItemId menu item id
+     * @return menu
+     */
     public String getMenu(int id, int menuItemId) {
         TeleportMenuHolder menu = getById(id);
         List<TeleportItemHolder> items = menu.getItems();
@@ -95,6 +112,12 @@ public class GlobalGatekeeperData implements IXmlReader {
         return sb.toString();
     }
 
+    /**
+     * @param menuItem   menu item
+     * @param index      index
+     * @param menuItemId menu item id
+     * @return menu color
+     */
     public String getMenuColor(TeleportItemHolder menuItem, int index, int menuItemId) {
         String color = menuItem.getColor();
         if (color == null && index == menuItemId) {
@@ -105,6 +128,12 @@ public class GlobalGatekeeperData implements IXmlReader {
         return color;
     }
 
+    /**
+     * @param player     player
+     * @param menuId     menu id
+     * @param menuItemId menu item id
+     * @return list
+     */
     public String getList(Player player, int menuId, int menuItemId) {
         TeleportMenuHolder menu = getById(menuId);
         TeleportItemHolder item = menu.getItems().get(menuItemId);
@@ -144,6 +173,8 @@ public class GlobalGatekeeperData implements IXmlReader {
                     .append(index)
                     .append(" ")
                     .append(0)
+                    .append("\" msg=\"811;")
+                    .append(area.getCapital())
                     .append("\">")
                     .append("<font color=B09878>")
                     .append(area.getCapital())
@@ -158,6 +189,13 @@ public class GlobalGatekeeperData implements IXmlReader {
         return sb.toString();
     }
 
+    /**
+     * @param player     player
+     * @param menuId     menu id
+     * @param menuItemId menu item id
+     * @param areaId     area id
+     * @return locations
+     */
     public String getLocations(Player player, int menuId, int menuItemId, int areaId) {
         TeleportMenuHolder menu = getById(menuId);
         TeleportItemHolder item = menu.getItems().get(menuItemId);
@@ -169,9 +207,11 @@ public class GlobalGatekeeperData implements IXmlReader {
         int index = 0;
         for (TeleportLocationHolder location : locations) {
             if (location.getType() == TeleportType.NOBLE && !player.isNoble()) {
+                index++;
                 continue;
             }
-            StringTokenizer tokenizer = new StringTokenizer(ItemData.getInstance().getTemplate(location.getPriceId()).getName());
+            Item priceItem = ItemData.getInstance().getTemplate(location.getPriceId());
+            StringTokenizer tokenizer = new StringTokenizer(priceItem.getName());
             String itemName = tokenizer.hasMoreTokens() ? tokenizer.nextToken() : "";
             int priceCount = calculatedPriceCount(player, location);
             sb
@@ -198,7 +238,7 @@ public class GlobalGatekeeperData implements IXmlReader {
                     .append("<font color=A3A0A3>")
                     .append(location.getPoint())
                     .append("</td>")
-                    .append("<td width=55>")
+                    .append("<td width=60>")
                     .append(String.format(Locale.US, "%,d", priceCount))
                     .append("</font>")
                     .append("</td>")
@@ -210,16 +250,24 @@ public class GlobalGatekeeperData implements IXmlReader {
                     .append("</tr>")
                     .append("</table>")
                     .append("<img src=L2UI.SquareGray width=280 height=1>");
-
             index++;
+        }
+        if (index < 18) {
+            StringUtil.append(sb, "<img height=", 20 * (15 - index), ">");
         }
         return sb.toString();
     }
 
+    /**
+     * @param player   player
+     * @param teleport teleport
+     * @return int
+     */
     public int calculatedPriceCount(Player player, TeleportLocationHolder teleport) {
         if (Config.FREE_TELEPORT && Config.FREE_TELEPORT_LVL > 0
                 && !player.isSubClassActive() && Config.FREE_TELEPORT_LVL >= player.getStatus().getLevel()
-                && teleport.getPriceId() == 57) {
+                && teleport.getPriceId() == 57
+                && player.getKarma() == 0) {
             return 0;
         }
 
@@ -242,9 +290,24 @@ public class GlobalGatekeeperData implements IXmlReader {
         currentHour = 1 + currentHour / 100;
         calculatedPrice *= currentHour;
 
+        if (player.getKarma() > 0) {
+            calculatedPrice *= 10;
+        }
+
         return calculatedPrice;
     }
 
+    /**
+     * Reload
+     */
+    public void reload() {
+        _teleports.clear();
+        load();
+    }
+
+    /**
+     * @return instance
+     */
     public static GlobalGatekeeperData getInstance() {
         return SingletonHolder.INSTANCE;
     }

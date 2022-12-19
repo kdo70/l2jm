@@ -299,6 +299,7 @@ public final class Config {
     public static boolean FREE_TELEPORT;
     public static int FREE_TELEPORT_LVL;
     public static int TELEPORT_BASE_PRICE;
+    public static int TELEPORT_PK_MUL;
     public static boolean ANNOUNCE_MAMMON_SPAWN;
     public static boolean MOB_AGGRO_IN_PEACEZONE;
     public static boolean SHOW_NPC_LVL;
@@ -972,6 +973,7 @@ public final class Config {
         FREE_TELEPORT = npcs.getProperty("FreeTeleport", false);
         FREE_TELEPORT_LVL = npcs.getProperty("FreeTeleportLvl", 0);
         TELEPORT_BASE_PRICE = npcs.getProperty("TeleportBasePrice", 0);
+        TELEPORT_PK_MUL = npcs.getProperty("TeleportPkMul", 0);
 
         ANNOUNCE_MAMMON_SPAWN = npcs.getProperty("AnnounceMammonSpawn", true);
         MOB_AGGRO_IN_PEACEZONE = npcs.getProperty("MobAggroInPeaceZone", true);

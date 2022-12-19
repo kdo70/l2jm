@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
     <menu id="0">
-        <item name="Towns" bypass="Quest GlobalGatekeeper List 0">
+        <item name="Города" bypass="Quest GlobalGatekeeper List 0">
             <area name="Town of Dion" capital="Dion">
                 <loc name="Town of Dion" point="" type="STANDARD" priceId="57" x="15637" y="142947" z="-2696" castleId="2"/>
                 <loc name="Cruma Marshlands" point="" type="STANDARD" priceId="57" x="5106" y="126916" z="-3664"/>
@@ -27,7 +27,7 @@
             <area name="Town of Giran" capital="Giran">
                 <loc name="Town of Giran" point="" type="STANDARD" priceId="57" x="83393" y="147975" z="-3400" castleId="3"/>
                 <loc name="Giran Harbor" point="" type="STANDARD" priceId="57" x="47938" y="186864" z="-3480"/>
-                <loc name="Hardin's Private Academy" point="" type="STANDARD" priceId="57" x="105918" y="109759" z="-3170" castleId="3"/>
+                <loc name="Hardin's Academy" point="" type="STANDARD" priceId="57" x="105918" y="109759" z="-3170" castleId="3"/>
                 <loc name="Dragon Valley" point="" type="STANDARD" priceId="57" x="73024" y="118485" z="-3688"/>
                 <loc name="Dragon Valley" point="Center" type="NOBLE" priceId="57" x="122824" y="110836" z="-3727"/>
                 <loc name="Antharas' Lair" point="" type="STANDARD" priceId="57" x="131557" y="114509" z="-3712"/>
@@ -125,7 +125,7 @@
                 <loc name="Town of Oren" point="" type="STANDARD" priceId="57" x="82917" y="53173" z="-1488" castleId="4"/>
                 <loc name="Ivory Tower" point="" type="STANDARD" priceId="57" x="85391" y="16228" z="-3640" castleId="4"/>
                 <loc name="Hunters Village" point="" type="STANDARD" priceId="57" x="117110" y="76883" z="-2670"/>
-                <loc name="Hardin's Private Academy" point="" type="STANDARD" priceId="57" x="105884" y="109744" z="-3170" castleId="3"/>
+                <loc name="Hardin's Academy" point="" type="STANDARD" priceId="57" x="105884" y="109744" z="-3170" castleId="3"/>
                 <loc name="Skyshadow Meadow" point="" type="STANDARD" priceId="57" x="89914" y="46276" z="-3616"/>
                 <loc name="Plains of the Lizardmen" point="" type="STANDARD" priceId="57" x="87252" y="85514" z="-3056"/>
                 <loc name="Outlaw Forest" point="" type="STANDARD" priceId="57" x="91539" y="-12204" z="-2440"/>
@@ -135,7 +135,7 @@
                 <loc name="Altar of Rites" point="" type="NOBLE" priceId="57" x="-44566" y="77508" z="-3736"/>
             </area>
         </item>
-        <item name="Villages" bypass="Quest GlobalGatekeeper List 1">
+        <item name="Деревни" bypass="Quest GlobalGatekeeper List 1">
             <area name="Floran Village" capital="Floran">
                 <loc name="Floran Village" point="" type="STANDARD" priceId="57" x="17430" y="170103" z="-3506" />
             </area>
@@ -155,7 +155,7 @@
             </area>
             <area name="Hunters Village" capital="Hunters">
                 <loc name="Hunters Village" point="" type="STANDARD" priceId="57" x="117052" y="76905" z="-2704" />
-                <loc name="Hardin's Private Academy" point="" type="STANDARD" priceId="57" x="105846" y="109762" z="-3170" castleId="3" />
+                <loc name="Hardin's Academy" point="" type="STANDARD" priceId="57" x="105846" y="109762" z="-3170" castleId="3" />
                 <loc name="Enchanted Valley" point="Southern" type="STANDARD" priceId="57" x="124904" y="61992" z="-3973" />
                 <loc name="Enchanted Valley" point="Northern" type="STANDARD" priceId="57" x="104426" y="33746" z="-3825" />
                 <loc name="Enchanted Valley" point="Center" type="NOBLE" priceId="57" x="114674" y="44150" z="-3376" />
@@ -206,22 +206,16 @@
                 <loc name="Mining Zone" point="Western" type="STANDARD" priceId="57" x="136910" y="-205082" z="-3664" />
             </area>
         </item>
-        <item name="Popular" bypass="Quest GlobalGatekeeper Locations 0 2 0">
+        <item name="Локации" bypass="Quest GlobalGatekeeper Locations 0 2 0">
             <area>
                 <loc name="Monastery of Silence" point="Entry" type="STANDARD" priceId="57" x="124161" y="-74828" z="-2904"/>
                 <loc name="Varka Silenos" point="Stronghold" type="STANDARD" priceId="57" x="125740" y="-40864" z="-3736"/>
             </area>
         </item>
-        <item name="Other" bypass="Quest GlobalGatekeeper Locations 0 3 0">
-            <area>
-                <loc name="Outlaw Forest" point="" type="STANDARD" priceId="57" x="91539" y="-12204" z="-2440"/>
-                <loc name="Sea of Spores" point="" type="STANDARD" priceId="57" x="64328" y="26803" z="-3768"/>
-            </area>
-        </item>
-        <item name="Store" bypass="npc_%objectId%_multisell 002" color="6697FF">
+        <item name="Лавка" bypass="npc_%objectId%_multisell 002" color="6697FF">
 
         </item>
-        <item name="Quest" bypass="npc_%objectId%_Quest" color="A3A0A3">
+        <item name="Задание" bypass="npc_%objectId%_Quest" color="A3A0A3">
 
         </item>
     </menu>

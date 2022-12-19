@@ -1,5 +1,6 @@
 package net.sf.l2j.gameserver.scripting.script.feature;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.data.manager.CastleManager;
 import net.sf.l2j.gameserver.data.xml.GlobalGatekeeperData;
 import net.sf.l2j.gameserver.enums.TeleportType;
@@ -14,14 +15,25 @@ import net.sf.l2j.gameserver.scripting.Quest;
 
 import java.util.StringTokenizer;
 
+/**
+ * Global gatekeeper
+ */
 public class GlobalGatekeeper extends Quest {
 
+    /**
+     * Menu id
+     */
     protected final int menuId = 0;
 
+    /**
+     * Global gatekeeper
+     */
     public GlobalGatekeeper() {
         super(-1, "feature");
-        addTalkId(30059, 30080, 30878);
-        addFirstTalkId(30059, 30080, 30878);
+        addTalkId(30059, 30080, 30878, 30256, 30320, 30899, 30848, 30177, 31275, 31964, 31320, 30006, 30146,
+                30134, 30540, 30576, 30233, 30836, 31698, 31699);
+        addFirstTalkId(30059, 30080, 30878, 30256, 30320, 30899, 30848, 30177, 31275, 31964, 31320, 30006,
+                30146, 30134, 30540, 30576, 30233, 30836, 31698, 31699);
     }
 
     @Override
@@ -51,6 +63,14 @@ public class GlobalGatekeeper extends Quest {
         return actionFailed(player);
     }
 
+    /**
+     * Send list string.
+     *
+     * @param npc    npc
+     * @param player player
+     * @param event  event
+     * @return list string
+     */
     public String sendList(Npc npc, Player player, String event) {
         final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
         final StringTokenizer string = getEvent(event);
@@ -62,11 +82,35 @@ public class GlobalGatekeeper extends Quest {
         html.setFile("data/html/mods/gk/index.htm");
         html.replace("%menu%", menu);
         html.replace("%list%", list);
+
+        String pkMessage = " ";
+        if (player.getKarma() > 0) {
+            final StringBuilder sb = new StringBuilder();
+            sb
+                    .append("<img height=\"5\">")
+                    .append("<font color=\"ff0000\">")
+                    .append("Стоимость телепорта для вас увеличена в ")
+                    .append(Config.TELEPORT_PK_MUL)
+                    .append(" раз")
+                    .append("</font>")
+                    .append("</font>");
+            pkMessage = sb.toString();
+        }
+        html.replace("%pk%", pkMessage);
+
         player.sendPacket(replaceNpcData(html, npc));
 
         return null;
     }
 
+    /**
+     * Send locations string.
+     *
+     * @param npc    npc
+     * @param player player
+     * @param event  event
+     * @return locations string
+     */
     public String sendLocations(Npc npc, Player player, String event) {
         final StringTokenizer string = getEvent(event);
 
@@ -87,6 +131,13 @@ public class GlobalGatekeeper extends Quest {
         return null;
     }
 
+    /**
+     * Teleport
+     *
+     * @param npc    npc
+     * @param player player
+     * @param event  event
+     */
     public void teleport(Npc npc, Player player, String event) {
         final StringTokenizer string = getEvent(event);
 
@@ -119,6 +170,13 @@ public class GlobalGatekeeper extends Quest {
         }
     }
 
+    /**
+     * Replace npc data npc html message
+     *
+     * @param html html
+     * @param npc  npc
+     * @return npc html message
+     */
     public NpcHtmlMessage replaceNpcData(NpcHtmlMessage html, Npc npc) {
         html.replace("%objectId%", npc.getObjectId());
         html.replace("%npcTitle%", npc.getTitle());
@@ -126,6 +184,12 @@ public class GlobalGatekeeper extends Quest {
         return html;
     }
 
+    /**
+     * Get event
+     *
+     * @param event event
+     * @return event
+     */
     public StringTokenizer getEvent(String event) {
         final StringTokenizer string = new StringTokenizer(event, " ");
         if (string.hasMoreTokens()) {
@@ -134,6 +198,11 @@ public class GlobalGatekeeper extends Quest {
         return string;
     }
 
+
+    /**
+     * @param player player
+     * @return actionFailed
+     */
     private String actionFailed(Player player) {
         player.sendPacket(ActionFailed.STATIC_PACKET);
         return null;
