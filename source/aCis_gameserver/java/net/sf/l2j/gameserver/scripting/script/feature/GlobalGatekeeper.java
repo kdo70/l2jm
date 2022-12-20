@@ -56,6 +56,10 @@ public class GlobalGatekeeper extends Quest {
             return sendLocations(npc, player, event);
         }
 
+        if (event.startsWith("Popular")) {
+            return sendPopular(npc, player, event);
+        }
+
         if (event.startsWith("Teleport")) {
             teleport(npc, player, event);
         }
@@ -64,7 +68,7 @@ public class GlobalGatekeeper extends Quest {
     }
 
     /**
-     * Send list string.
+     * Send list
      *
      * @param npc    npc
      * @param player player
@@ -72,12 +76,13 @@ public class GlobalGatekeeper extends Quest {
      * @return list string
      */
     public String sendList(Npc npc, Player player, String event) {
-        final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
         final StringTokenizer string = getEvent(event);
         int menuItemId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
 
         String menu = GlobalGatekeeperData.getInstance().getMenu(this.menuId, menuItemId);
         String list = GlobalGatekeeperData.getInstance().getList(player, this.menuId, menuItemId);
+
+        final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
 
         html.setFile("data/html/mods/gk/index.htm");
         html.replace("%menu%", menu);
@@ -92,7 +97,6 @@ public class GlobalGatekeeper extends Quest {
                     .append("Стоимость телепорта для вас увеличена в ")
                     .append(Config.TELEPORT_PK_MUL)
                     .append(" раз")
-                    .append("</font>")
                     .append("</font>");
             pkMessage = sb.toString();
         }
@@ -104,7 +108,7 @@ public class GlobalGatekeeper extends Quest {
     }
 
     /**
-     * Send locations string.
+     * Send locations
      *
      * @param npc    npc
      * @param player player
@@ -118,10 +122,36 @@ public class GlobalGatekeeper extends Quest {
         int menuItemId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
         int areaId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
 
-        final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
-
         String menu = GlobalGatekeeperData.getInstance().getMenu(menuId, menuItemId);
         String locations = GlobalGatekeeperData.getInstance().getLocations(player, menuId, menuItemId, areaId);
+
+        final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
+
+        html.setFile("data/html/mods/gk/locations.htm");
+        html.replace("%menu%", menu);
+        html.replace("%locations%", locations);
+        player.sendPacket(replaceNpcData(html, npc));
+
+        return null;
+    }
+
+    /**
+     * Send popular
+     *
+     * @param npc    npc
+     * @param player player
+     * @param event  event
+     * @return locations string
+     */
+    public String sendPopular(Npc npc, Player player, String event) {
+        final StringTokenizer string = getEvent(event);
+
+        int menuItemId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
+
+        String menu = GlobalGatekeeperData.getInstance().getMenu(this.menuId, menuItemId);
+        String locations = GlobalGatekeeperData.getInstance().getPopular(player);
+
+        final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
 
         html.setFile("data/html/mods/gk/locations.htm");
         html.replace("%menu%", menu);
@@ -146,11 +176,16 @@ public class GlobalGatekeeper extends Quest {
         int areaId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
         int locationId = string.hasMoreTokens() ? Integer.parseInt(string.nextToken()) : 0;
 
-        TeleportLocationHolder location = GlobalGatekeeperData.getInstance()
-                .getById(menuId)
-                .getItems().get(menuItemId)
-                .getAreas().get(areaId)
-                .getLocations().get(locationId);
+        TeleportLocationHolder location;
+        if (areaId == -1) {
+            location = GlobalGatekeeperData.getInstance().getLocationByIndex(locationId);
+        } else {
+            location = GlobalGatekeeperData.getInstance()
+                    .getById(menuId)
+                    .getItems().get(menuItemId)
+                    .getAreas().get(areaId)
+                    .getLocations().get(locationId);
+        }
 
         if (location.getCastleId() > 0) {
             final Castle castle = CastleManager.getInstance().getCastleById(location.getCastleId());
@@ -166,6 +201,7 @@ public class GlobalGatekeeper extends Quest {
 
         final int priceCount = GlobalGatekeeperData.getInstance().calculatedPriceCount(player, location);
         if (priceCount == 0 || player.destroyItemByItemId("InstantTeleport", location.getPriceId(), priceCount, npc, true)) {
+            location.setCount(location.getCount() + 1);
             player.teleportTo(location, 20);
         }
     }

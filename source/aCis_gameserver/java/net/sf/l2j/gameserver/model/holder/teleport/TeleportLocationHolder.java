@@ -5,11 +5,13 @@ import net.sf.l2j.gameserver.enums.TeleportType;
 import net.sf.l2j.gameserver.model.location.Location;
 
 /**
- *  Teleport location holder
+ * Teleport location holder
  */
 public class TeleportLocationHolder extends Location {
 
+    private final int _id;
     private final String _name;
+    private int _count;
     private final String _point;
     private final TeleportType _type;
     private final int _priceId;
@@ -25,6 +27,7 @@ public class TeleportLocationHolder extends Location {
                 set.getInteger("y", 0),
                 set.getInteger("z", 0)
         );
+        _id = set.getInteger("id");
         _name = set.getString("name");
         _point = set.getString("point", null);
         _type = set.getEnum("type", TeleportType.class, TeleportType.STANDARD);
@@ -34,10 +37,31 @@ public class TeleportLocationHolder extends Location {
     }
 
     /**
+     * @return id
+     */
+    public int getId() {
+        return _id;
+    }
+
+    /**
      * @return name
      */
     public String getName() {
         return _name;
+    }
+
+    /**
+     * @return count
+     */
+    public int getCount() {
+        return _count;
+    }
+
+    /**
+     * @param _count the count
+     */
+    public void setCount(int _count) {
+        this._count = _count;
     }
 
     /**
